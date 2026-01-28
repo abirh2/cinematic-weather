@@ -1,0 +1,7 @@
+{
+  "name": "Cinematic Weather",
+  "description": "A premium, polished weather application featuring dynamic cinematic backgrounds, smooth visualizations, and detailed weather metrics.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

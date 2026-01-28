@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinematic Weather</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              accent: '#137fec',
+            },
+            animation: {
+              'fade-in': 'fadeIn 1s ease-out forwards',
+              'pulse-slow': 'pulse 3s infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #101922;
+        overflow: hidden; /* Prevent scrolling on the main body */
+      }
+      /* Custom Scrollbar for any scrollable areas */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Weather Effects & Animations */
+
+      /* Rain */
+      @keyframes rain-fall {
+        0% { transform: translateY(-10vh); opacity: 0; }
+        10% { opacity: 0.8; }
+        90% { opacity: 0.8; }
+        100% { transform: translateY(100vh); opacity: 0; }
+      }
+      .rain-drop {
+        position: absolute;
+        top: 0;
+        width: 1px;
+        height: 15vh;
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.3));
+        animation: rain-fall linear infinite;
+        will-change: transform, opacity;
+      }
+
+      /* Snow */
+      @keyframes snow-fall {
+        0% { transform: translateY(-10vh) translateX(0); opacity: 0; }
+        10% { opacity: 0.8; }
+        100% { transform: translateY(110vh) translateX(20px); opacity: 0.2; }
+      }
+      .snowflake {
+        position: absolute;
+        top: 0;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        filter: blur(1px);
+        animation: snow-fall linear infinite;
+        will-change: transform, opacity;
+      }
+
+      /* Thunder */
+      @keyframes flash {
+        0% { opacity: 0; }
+        2% { opacity: 0.3; }
+        3% { opacity: 0; }
+        4% { opacity: 0.1; }
+        5% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      .thunder-flash {
+        animation: flash 10s infinite;
+        will-change: opacity;
+      }
+
+      /* Sun Pulse */
+      @keyframes pulse-warm {
+        0% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.1); }
+        100% { opacity: 0.4; transform: scale(1); }
+      }
+      .sun-spot {
+         background: radial-gradient(circle, rgba(255,220,180,0.5) 0%, rgba(255,210,150,0) 70%);
+         animation: pulse-warm 8s infinite ease-in-out;
+         will-change: transform, opacity;
+      }
+
+      /* Clouds / Mist Drift */
+      @keyframes drift {
+        0% { transform: translateX(-10%); }
+        100% { transform: translateX(10%); }
+      }
+      .cloud-layer {
+        animation: drift 60s ease-in-out infinite alternate;
+        will-change: transform;
+      }
+
+      /* Background Pan (Ken Burns) */
+      @keyframes ken-burns {
+        0% { transform: scale(1.1) translate(0, 0); }
+        50% { transform: scale(1.15) translate(-1%, -1%); }
+        100% { transform: scale(1.1) translate(0, 0); }
+      }
+      .bg-ken-burns {
+        animation: ken-burns 40s ease-in-out infinite;
+        will-change: transform;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
