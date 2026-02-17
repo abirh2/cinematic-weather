@@ -107,6 +107,24 @@ function App() {
      );
   }
 
+  // Auto-refresh weather data every 15 minutes
+  useEffect(() => {
+    const REFRESH_INTERVAL = 15 * 60 * 1000; // 15 minutes
+
+    const refresh = () => {
+      if (lastCity) {
+        loadCity(lastCity, unit);
+      } else {
+        loadCurrentLocation(unit);
+      }
+    };
+
+    const intervalId = setInterval(refresh, REFRESH_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, [lastCity, unit, loadCity, loadCurrentLocation]);
+
+
   return (
     <div className="relative h-screen w-full overflow-hidden font-display flex flex-col justify-between selection:bg-accent/30 selection:text-white">
       
